@@ -1,10 +1,37 @@
 import requests
-from urllib.parse import quote
+
+import textract
+from collections import defaultdict
+from os import getcwd
+from os.path import join
 
 
-def main():
-    search_phrase = input("what would you like to search?")
+def convertToMorseCode(text):
+    # clean it, convert it, return it
+    MORSE_CODE_DICT = defaultdict(str)
+    MORSE_CODE_DICT.update({'A': '.-', 'B': '-...',
+                            'C': '-.-.', 'D': '-..', 'E': '.',
+                            'F': '..-.', 'G': '--.', 'H': '....',
+                            'I': '..', 'J': '.---', 'K': '-.-',
+                            'L': '.-..', 'M': '--', 'N': '-.',
+                            'O': '---', 'P': '.--.', 'Q': '--.-',
+                            'R': '.-.', 'S': '...', 'T': '-',
+                            'U': '..-', 'V': '...-', 'W': '.--',
+                            'X': '-..-', 'Y': '-.--', 'Z': '--..',
+                            '1': '.----', '2': '..---', '3': '...--',
+                            '4': '....-', '5': '.....', '6': '-....',
+                            '7': '--...', '8': '---..', '9': '----.',
+                            '0': '-----', ', ': '--..--', '.': '.-.-.-',
+                            '?': '..--..', '/': '-..-.', '-': '-....-',
+                            '(': '-.--.', ')': '-.--.-'})
+    text = text.upper()
+    new_text = []
+    for char in text:
+        new_text.append(MORSE_CODE_DICT[char])
+    print(' '.join(new_text))
 
+
+def search(phrase):
     cookies = {
         'ASP.NET_SessionId': 'ervja3vcyqg51q503aewmm1d',
     }
@@ -22,18 +49,29 @@ def main():
     }
 
     params = (
-        ('searchPhrase', search_phrase),
+        ('searchPhrase', phrase),
         ('statuteRange', 'on'),
         ('startRange', '1'),
         ('endRange', '999'),
         ('X-Requested-With', 'XMLHttpRequest'),
     )
 
-
     response = requests.get('https://apps.legislature.ky.gov/LRCSearch/Home/getStatuteJSON', headers=headers,
                             params=params, cookies=cookies)
-    print(response.text)
+    return response.json()[0]
+
+
+def main():
+    # search_phrase = input("what would you like to search?")
+    search_phrase = "funeral interference"
+    results = search(search_phrase)
+    print(results)
+    response = requests.get(results["RSN"])
+    open('pdf.pdf', 'wb').write(response.content)
+    text = textract.process(join(getcwd(), "pdf.pdf"))
+    print(text)
 
 
 if __name__ == '__main__':
+    # convertToMorseCode('yo momma!')
     main()
