@@ -58,18 +58,17 @@ def search(phrase):
 
     response = requests.get('https://apps.legislature.ky.gov/LRCSearch/Home/getStatuteJSON', headers=headers,
                             params=params, cookies=cookies)
-    return response.json()[0]
+    pdf_response = requests.get(response.json()[0]["RSN"])
+    open('results.pdf', 'wb').write(pdf_response.content)
+    text = textract.process(join(getcwd(), "results.pdf"))
+    text = text.decode("utf-8")
+    return text
 
 
 def main():
     # search_phrase = input("what would you like to search?")
     search_phrase = "funeral interference"
-    results = search(search_phrase)
-    print(results)
-    response = requests.get(results["RSN"])
-    open('pdf.pdf', 'wb').write(response.content)
-    text = textract.process(join(getcwd(), "pdf.pdf"))
-    text = text.decode("utf-8")
+    text = search(search_phrase)
     print(text)
 
 
