@@ -69,6 +69,7 @@ def main():
     response = requests.get(results["RSN"])
     open('pdf.pdf', 'wb').write(response.content)
     text = textract.process(join(getcwd(), "pdf.pdf"))
+    text = text.decode("utf-8")
     print(text)
 
 
