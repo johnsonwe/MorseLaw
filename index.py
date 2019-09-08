@@ -28,13 +28,6 @@ def divide():
 
     return render_template('index.html', form=form, morsecode=morseCode)
 
-@app.route('/gotcha', methods=['GET', 'POST'])
-def whatever():
-    form = UrlLink()
-
-    return render_template('index.html', form=form)
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

@@ -17,27 +17,23 @@ form {
     padding-bottom: 20px;
 }
 
-
-
-
-
 </style>
 
 <div class="container">
     <header>
         <center>
-            <img src="static/images/MorseLaw.png" height = "75px" width = "250px" margin-bottom = "20px"/>
+            <img src="static/images/MorseLaw.png" height="75px" width="250px" margin-bottom="20px"/>
             <p>
                 <small> Convert any <a href="https://apps.legislature.ky.gov/lrcsearch#tabs-6"> Kentucky State Law</a>
                     into Morse Code!
                 </small>
             </p>
             <form action="{{ url_for('divide') }}" method="POST" novalidate>
-            {{ form.hidden_tag() }}
-            <p>
-                {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit() }}<br>
-            </p>
-        </form>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit() }}<br>
+                </p>
+            </form>
         </center>
         {% if form.errors %}
         {{ form.errors }}
@@ -50,20 +46,10 @@ form {
             </div>
             <input style="visibility: hidden;" type="text" pattern="[.\- ]+" name="code" value="{{morsecode}}">
         </form>
-
-        <!--<textarea id="demo">{{ morsecode }}</textarea>-->
-        <!--<button>Play</button>-->
-
-        {% else %}
-        <p>nothing to see</p>
         {% endif %}
     </header>
 </div>
 
-<!--<form id="demo">-->
-<!--<input type="text" pattern="[.\- ]+" name="code" value="-.-. &#45;&#45;... ... -.- -.&#45;&#45;">-->
-<!--<button>Play</button>-->
-<!--</form>-->
 
 <script type="text/javascript">
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -107,8 +93,6 @@ document.getElementById("demo").onsubmit = function() {
 
     return false;
 }
-
-
 </script>
 
 </html>
