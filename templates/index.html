@@ -19,40 +19,96 @@ form {
 
 
 
+
+
 </style>
 
 <div class="container">
     <header>
         <center>
-            <h1>Morse Law</h1>
+            <img src="static/images/MorseLaw.png" height = "75px" width = "250px" margin-bottom = "20px"/>
             <p>
                 <small> Convert any <a href="https://apps.legislature.ky.gov/lrcsearch#tabs-6"> Kentucky State Law</a>
                     into Morse Code!
                 </small>
             </p>
-        </center>
-        <form action="{{ url_for('divide') }}" method="POST" novalidate>
+            <form action="{{ url_for('divide') }}" method="POST" novalidate>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit() }}<br>
             </p>
         </form>
+        </center>
         {% if form.errors %}
         {{ form.errors }}
         {% endif %}
         {% if morsecode %}
-        <textarea>{{ morsecode }}</textarea>
+        <form id="demo">
+            <textarea style="height:200px;width:400px;">{{ morsecode }}</textarea>
+            <div style="text-align:center">
+                <button style="margin-top:5px;">Play</button>
+            </div>
+            <input style="visibility: hidden;" type="text" pattern="[.\- ]+" name="code" value="{{morsecode}}">
+        </form>
+
+        <!--<textarea id="demo">{{ morsecode }}</textarea>-->
+        <!--<button>Play</button>-->
+
         {% else %}
         <p>nothing to see</p>
         {% endif %}
     </header>
 </div>
-<!--<script type="javascript" >-->
-<!--import {MorseCodePlayer } from 'animal-morse-code';-->
-    <!--var player = new MorseCodePlayer();-->
-    <!--console.log(player)-->
-    <!--player.loadSoundSet(1);-->
-    <!--player.playText('hi you', callback);-->
-<!--</script>-->
-<script type="text/javascript" src="{{ url_for('static', filename='node_modules/animal-morse-code/static/js/morse.js') }}"></script>
+
+<!--<form id="demo">-->
+<!--<input type="text" pattern="[.\- ]+" name="code" value="-.-. &#45;&#45;... ... -.- -.&#45;&#45;">-->
+<!--<button>Play</button>-->
+<!--</form>-->
+
+<script type="text/javascript">
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var ctx = new AudioContext();
+var dot = 1.2 / 15;
+
+document.getElementById("demo").onsubmit = function() {
+    var t = ctx.currentTime;
+
+    var oscillator = ctx.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.value = 600;
+
+    var gainNode = ctx.createGain();
+    gainNode.gain.setValueAtTime(0, t);
+
+    this.code.value.split("").forEach(function(letter) {
+        switch(letter) {
+            case ".":
+                gainNode.gain.setValueAtTime(1, t);
+                t += dot;
+                gainNode.gain.setValueAtTime(0, t);
+                t += dot;
+                break;
+            case "-":
+                gainNode.gain.setValueAtTime(1, t);
+                t += 3 * dot;
+                gainNode.gain.setValueAtTime(0, t);
+                t += dot;
+                break;
+            case " ":
+                t += 7 * dot;
+                break;
+        }
+    });
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+
+    return false;
+}
+
+
+</script>
+
 </html>
