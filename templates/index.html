@@ -29,7 +29,7 @@ form {
             <img src="static/images/MorseLaw.png" height="75px" width="250px" margin-bottom="10px"/>
             </nav>
             <p>
-                <h4> Convert any <a href="https://apps.legislature.ky.gov/lrcsearch#tabs-6" style="color:gray"> Kentucky State Law</a>
+                <h4> Convert any <a href="https://apps.legislature.ky.gov/lrcsearch#tabs-6" style="color:#dc3545"> Kentucky State Law</a>
                     into Morse Code!
                 </h4>
             </p>
@@ -37,7 +37,7 @@ form {
             <form action="{{ url_for('divide') }}" method="POST" novalidate>
                 {{ form.hidden_tag() }}
                 <p>
-                    {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit(style_="margin-left:3px") }}<br>
+                    {{ form.searchbox.label }} {{form.searchbox()}}<br>
                 </p>
             </form>
 
@@ -48,7 +48,7 @@ form {
         <form id="demo">
             <textarea style="height:200px;width:400px;">{{ morsecode }}</textarea>
             <div style="text-align:center">
-                <button class = "btn btn-danger" style="margin-top:5px;">Play</button>
+                <button class = "btn btn-danger btn-lg" style="margin-top:5px;">Play</button>
             </div>
             <input style="visibility: hidden;" type="text" pattern="[.\- ]+" name="code" value="{{morsecode}}">
         </form>
