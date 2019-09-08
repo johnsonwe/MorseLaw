@@ -47,13 +47,12 @@ form {
         {% endif %}
     </header>
 </div>
-<script type="javascript" >
-import {MorseCodePlayer } from 'animal-morse-code';
-    var player = new MorseCodePlayer();
-    console.log(player)
-    player.loadSoundSet(1);
-    player.playText('hi you', callback);
-</script>
-
-<script src="{{ url_for('js', filename='node_modules/toastr/toastr.js')}}"></script>
+<!--<script type="javascript" >-->
+<!--import {MorseCodePlayer } from 'animal-morse-code';-->
+    <!--var player = new MorseCodePlayer();-->
+    <!--console.log(player)-->
+    <!--player.loadSoundSet(1);-->
+    <!--player.playText('hi you', callback);-->
+<!--</script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='node_modules/animal-morse-code/static/js/morse.js') }}"></script>
 </html>
