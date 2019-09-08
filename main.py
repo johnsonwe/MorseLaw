@@ -28,7 +28,7 @@ def convertToMorseCode(text):
     new_text = []
     for char in text:
         new_text.append(MORSE_CODE_DICT[char])
-    print(' '.join(new_text))
+    return ' '.join(new_text)
 
 
 def search(phrase):

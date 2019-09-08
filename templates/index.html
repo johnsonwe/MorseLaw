@@ -32,7 +32,7 @@ form {
                 </small>
             </p>
         </center>
-        <form action="{{ url_for('divide') }}" method="POST" novalidate>
+        <form action="{{ url_for('whatever') }}" method="POST" novalidate>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit() }}<br>
@@ -42,7 +42,7 @@ form {
         {{ form.errors }}
         {% endif %}
         {% if morsecode %}
-        <p>{{ moresecode }}</p>
+        <p>{{ morsecode }}</p>
         {% else %}
         <p>nothing to see</p>
 

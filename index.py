@@ -19,13 +19,20 @@ def divide():
     form = UrlLink()
     morseCode = None
     # if form.validate_on_submit():
-    print('here')
     text = "funeral interference"
+
     morseCode = convertToMorseCode(text)
     # else:
     #     print("not here")
 
     return render_template('index.html', form=form, morsecode=morseCode)
+
+@app.route('/gotcha', methods=['GET', 'POST'])
+def whatever():
+    form = UrlLink()
+
+    return render_template('index.html', form=form)
+
 
 
 if __name__ == '__main__':
