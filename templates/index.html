@@ -18,11 +18,14 @@ form {
 }
 
 </style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 
 <div class="container">
     <header>
         <center>
-            <img src="static/images/MorseLaw.png" height="75px" width="250px" margin-bottom="20px"/>
+            <img src="static/images/MorseLaw.png" height="75px" width="250px" margin-bottom="10px"/>
             <p>
                 <small> Convert any <a href="https://apps.legislature.ky.gov/lrcsearch#tabs-6"> Kentucky State Law</a>
                     into Morse Code!
@@ -31,22 +34,23 @@ form {
             <form action="{{ url_for('divide') }}" method="POST" novalidate>
                 {{ form.hidden_tag() }}
                 <p>
-                    {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit() }}<br>
+                    {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit(class_="btn-default", style_="margin-left:3px;") }}<br>
                 </p>
             </form>
-        </center>
-        {% if form.errors %}
+            {% if form.errors %}
         {{ form.errors }}
         {% endif %}
         {% if morsecode %}
         <form id="demo">
             <textarea style="height:200px;width:400px;">{{ morsecode }}</textarea>
             <div style="text-align:center">
-                <button style="margin-top:5px;">Play</button>
+                <button class = "btn btn-danger" style="margin-top:5px;">Play</button>
             </div>
             <input style="visibility: hidden;" type="text" pattern="[.\- ]+" name="code" value="{{morsecode}}">
         </form>
         {% endif %}
+        </center>
+
     </header>
 </div>
 
@@ -94,5 +98,5 @@ document.getElementById("demo").onsubmit = function() {
     return false;
 }
 </script>
-
+<!--https://codepen.io/cople/pen/zZLJOz-->
 </html>

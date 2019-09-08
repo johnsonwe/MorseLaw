@@ -22,10 +22,6 @@ def divide():
         text = form.searchbox.data
         law = search(text)
         morseCode = convertToMorseCode(law)
-
-    else:
-        print("not here")
-
     return render_template('index.html', form=form, morsecode=morseCode)
 
 
