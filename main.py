@@ -40,7 +40,7 @@ def search(phrase):
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
         'Accept': '*/*',
         'Accept-Language': 'en-US,en;q=0.5',
-        'RequestVerificationToken': 'M8E3A_g8oafHJ1cmxaTPVbM2m5qsCNtkc6OqMCGXlt1DXK7uxHXwmAis0ZEQYqAN4VrhReW-CpCbLOgGSvzoZj3AaQoCaHJ7b1MQLTTRR_bZVV2XFWJEyooDzKyExtmQLCWS1gXsi5sTzUnOpYKbIw2:ef3Oog4yVN00vSXZHI3-3uNveVNQ3NV8m22SwoAbX0CVvyTyddHSknuscbwEYJoS-tcuW-97J3XkAprS-9bNjy41vl66bsWralNaQfdekVgS2ikfMiLHdfUV5zTyXhyvhIwToO91WDD_XOd5mMabJ7oPqb4vnxsyWpH-MJOHZQs1',
+        'RequestVerificationToken': 'CUXTJLtT-FuTCeb8F_UfKGkn_4wH6MY5Ox6LBPR-a4WWB7s42cN7Se4X5-_5A7m98AtppitxWH58-HtRzSz_08PQPNZJ6-JZGzcWuL9SFUujZQAxe2R_YnD9A4vT3dCCi49Gxc37JjHsuTDS5JSg0Q2:CMp9KAFlIfFYoSScfKPzQwHxJm2ERi7uCRL3n48OsR-xQiw2PznWxCt504SnS1ttZxZRjs_X3uLJJrapB_slqi0JtGftCt4Z3BjdrIJJAhhJTjPDfR2I04GvfuP8latwmXPlPibLR8lxNiAGI1QPPtr55LdwFtm-qfNWRAoaStg1',
         'X-Requested-With': 'XMLHttpRequest',
         'DNT': '1',
         'Connection': 'keep-alive',
@@ -59,8 +59,9 @@ def search(phrase):
     response = requests.get('https://apps.legislature.ky.gov/LRCSearch/Home/getStatuteJSON', headers=headers,
                             params=params, cookies=cookies)
     pdf_response = requests.get(response.json()[0]["RSN"])
-    open('results.pdf', 'wb').write(pdf_response.content)
-    text = textract.process(join(getcwd(), "results.pdf"))
+    with open('results.pdf', 'wb') as fileobj:
+        fileobj.write(pdf_response.content)
+    text = textract.process(join(getcwd(), 'results.pdf'))
     text = text.decode("utf-8")
     return text
 
@@ -73,5 +74,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # convertToMorseCode('yo momma!')
     main()

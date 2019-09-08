@@ -1,7 +1,52 @@
-<!doctype html>
-<title>Hello from Flask</title>
-{% if name %}
-  <h1>Hello {{ name }}!</h1>
-{% else %}
-  <h1>Hello, World!</h1>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Morse Law</title>
+</head>
+
+<style>
+    .container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+form {
+    padding-bottom: 20px;
+}
+
+
+
+
+</style>
+
+<div class="container">
+    <header>
+        <center>
+            <h1>Morse Law</h1>
+            <p>
+                <small> Convert any <a href="https://apps.legislature.ky.gov/lrcsearch#tabs-6"> Kentucky State Law</a>
+                    into Morse Code!
+                </small>
+            </p>
+        </center>
+        <form action="{{ url_for('divide') }}" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit() }}<br>
+            </p>
+        </form>
+        {% if form.errors %}
+        {{ form.errors }}
+        {% endif %}
+        {% if morsecode %}
+        <p>{{ moresecode }}</p>
+        {% else %}
+        <p>nothing to see</p>
+
+        {% endif %}
+    </header>
+</div>
+</html>
