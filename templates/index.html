@@ -19,7 +19,6 @@ form {
 
 
 
-
 </style>
 
 <div class="container">
@@ -32,7 +31,7 @@ form {
                 </small>
             </p>
         </center>
-        <form action="{{ url_for('whatever') }}" method="POST" novalidate>
+        <form action="{{ url_for('divide') }}" method="POST" novalidate>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit() }}<br>
@@ -42,11 +41,19 @@ form {
         {{ form.errors }}
         {% endif %}
         {% if morsecode %}
-        <p>{{ morsecode }}</p>
+        <textarea>{{ morsecode }}</textarea>
         {% else %}
         <p>nothing to see</p>
-
         {% endif %}
     </header>
 </div>
+<script type="javascript" >
+import {MorseCodePlayer } from 'animal-morse-code';
+    var player = new MorseCodePlayer();
+    console.log(player)
+    player.loadSoundSet(1);
+    player.playText('hi you', callback);
+</script>
+
+<script src="{{ url_for('js', filename='node_modules/toastr/toastr.js')}}"></script>
 </html>

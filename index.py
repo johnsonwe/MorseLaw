@@ -18,12 +18,13 @@ class UrlLink(FlaskForm):
 def divide():
     form = UrlLink()
     morseCode = None
-    # if form.validate_on_submit():
-    text = "funeral interference"
+    if form.validate_on_submit():
+        text = form.searchbox.data
+        law = search(text)
+        morseCode = convertToMorseCode(law)
 
-    morseCode = convertToMorseCode(text)
-    # else:
-    #     print("not here")
+    else:
+        print("not here")
 
     return render_template('index.html', form=form, morsecode=morseCode)
 
