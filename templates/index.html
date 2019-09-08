@@ -22,7 +22,7 @@ form {
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
-<div class="container">
+<div class="container-fluid">
 
     <header>
         <center>
@@ -38,9 +38,9 @@ form {
                     {{ form.searchbox.label }} {{form.searchbox()}}{{ form.submit(class_="btn-default", style_="margin-left:3px;") }}<br>
                 </p>
             </form>
-            {% if form.errors %}
-        {{ form.errors }}
-        {% endif %}
+            <!--{% if form.errors %}-->
+        <!--{{ form.errors }}-->
+        <!--{% endif %}-->
         {% if morsecode %}
         <form id="demo">
             <textarea style="height:200px;width:400px;">{{ morsecode }}</textarea>
